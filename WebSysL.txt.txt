@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>...</title>
+    <style>
+
+        button:hover {
+            background-color: lightpink;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <h2>To-Do List</h2>
+
+    <button id="loadBtn">Load User Data </button>
+
+    <div>
+        <h2 id="text"></h2>
+        <p id="textt"> </p>
+    </div>
+
+
+
+    <div class="container">
+
+        <div class="input-container">
+            <input type="text" id="taskInput" placeholder="Enter task...">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+        <ul id="task-list">
+        </ul>
+    </div>
+
+    <button id="lightBtn">Light Theme</button>
+    <button id="darkBtn">Dark Theme</button>
+
+    <div class="signup-container">
+        <input type="text" id="usernameInput" placeholder="Enter your username">
+        <p id="usernameFeedback"></p>
+    </div>
+
+
+    <script>
+
+        document.getElementById("loadBtn").addEventListener("click", function () {
+            document.getElementById("loadBtn").innerText = "Loading data...", "fa fa-spinner fa-spin";
+            document.getElementById("text").innerText = "Hazel Joy Sabiaga";
+            document.getElementById("textt").innerText = "Coding is challenging";
+
+
+        });
+
+        function addTask() {
+
+
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value.trim();
+
+            if (taskText === "") {
+                alert("Please enter a task.");
+                return;
+            }
+
+            let newTask = document.createElement('li');
+            newTask.innerHTML = taskText;
+
+            let removeBtn = document.createElement('button');
+            removeBtn.innerText = "Remove";
+            removeBtn.addEventListener('click', function (event) {
+                event.stopPropagation();
+                newTask.innerHTML = "<del>" + taskText + "</del>";
+                removeBtn.remove();
+            });
+
+            newTask.appendChild(removeBtn);
+
+            newTask.addEventListener('click', function () {
+                if (newTask.style.textDecoration === "line-through") {
+                    newTask.style.textDecoration = "none";
+                    newTask.style.color = "black";
+                } else {
+                    newTask.style.textDecoration = "line-through";
+                    newTask.style.color = "gray";
+                }
+            });
+
+            document.getElementById("task-list").appendChild(newTask);
+
+            taskInput.value = "";
+        }
+
+
+        const lightBtn = document.getElementById('lightBtn');
+        const darkBtn = document.getElementById('darkBtn');
+
+        const body = document.body;
+
+
+        lightBtn.addEventListener('click', () => {
+            body.style.backgroundColor = 'white';
+            body.style.color = 'black';
+        });
+
+        darkBtn.addEventListener('click', () => {
+            body.style.backgroundColor = 'black';
+            body.style.color = 'white';
+        });
+
+     
+        const usernameInput = document.getElementById('usernameInput');
+        const usernameFeedback = document.getElementById('usernameFeedback');
+
+       
+        usernameInput.addEventListener('input', () => {
+            const username = usernameInput.value.trim(); 
+
+           
+            if (username.length < 5) {
+                usernameFeedback.textContent = 'Username must be at least 5 characters!';
+                usernameFeedback.style.color = 'red'; 
+            } else {
+                usernameFeedback.textContent = 'Username is valid!';
+                usernameFeedback.style.color = 'green'; 
+            }
+        });
+
+
+
+
+    </script>
+</body>
+</html>
+
+
+
+
